@@ -4,9 +4,14 @@
 
 ### What is DevOps?
 Key aspects of DevOps include breaking the silos that keep Developer and Operations teams apart in order
-to improve collaboration, share responsibilities, deploy infastructure as code
+to improve collaboration, share responsibilities, deploy infastructure as code, continuous integration and continuous delivery, microservices, monitoring and logging.
 
-benefits include: improved collaboration, get product out quicker
+benefits include:
+- improved collaboration
+- faster, better product delivery
+- more stable operating environments
+- greater automation
+- greater innovation
 
 
 ### What we want our tools to be
@@ -27,3 +32,12 @@ A monolithic architecture is a traditional model of a software program, which is
 #### Two tier 
 In a two-tier architecture, the client os on the first tier. The database server and web appliction server reside on the same server machine which is the second tier
 #### Microservices
+A microservice architecture – a variant of the service-oriented architecture structural style – is an architectural pattern that arranges an application as a collection of loosely coupled, fine-grained services, communicating through lightweight protocols.
+
+### Risk Assessment
+The 5 principles of risk assessment is
+1. Identify hazards
+2. Assess the risks
+3. Control the risks
+4. Record your findings
+5. Review the controls
