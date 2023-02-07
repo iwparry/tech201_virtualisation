@@ -58,11 +58,12 @@ One of the main reasons we need to build these is to ensure consistency accross 
   - App 1 needs a specific program that conflicts with the program needed by App 2
 
 ### Setting up our Environment using Vagrant
-After installing VirtualBox and Vagrant we use the following to make our environment after navigating to the correct directory
+After installing VirtualBox and Vagrant we will start using Vagrant. In GitBash, while in the right folder, we enter
 ```
 vagrant init ubuntu/xenial64
 ```
-Follwing which we should get 
+`init` simply meaning 'initialise', and `ubuntu/xenial64` being the OS we want our virtual machine to be.
+Follwing which we should get a Vagrantfile, which is a configuration file we have created in our chosen folder, with the following lines of code (initially will come with a lot of comments!). Note the file is also written in the language, Ruby.
 ```
 Vagrant.configure("2") do |config|
 
@@ -71,7 +72,61 @@ Vagrant.configure("2") do |config|
 
 end
 ```
-To then start our environment we use the command:
+In the line `congig.vm.box = "ubuntu/xenial64` we are saying that we want to make our virtual machine using the specified OS.
+
+At this point we haven't yet made our virtual machine, we've only made a configuration file. To send the configuration file to VirtualBox we use the command:
+
 ```
 vagrant up
 ```
+To check that this has been done we open our VirtualBox and should see:
+![](VirtualBox_vagrantup.png)
+Now we need to connect to our virtual machine via the command:
+```
+vagrant ssh
+```
+This command allows us to connect to our virtual machine securely. Since we are doing this locally and already have a connection we do not have to specify anything at present.
+
+When we are connected successfully to our virtual machine we should have the following appear in GitBash instead of our user
+```
+vagrant@ubuntu-xenial:~$
+```
+In our environment we are going to want to use a web server, for this example we will use `nginx`. The way we do this is:
+```
+sudo apt-get update -y
+```
+`sudo` means "super user", indicating we have all the access we need, `apt-get` means that we are "getting something from the internet", and the keyword `update` is used to update the core functions of our OS in the virtual machine, and lastly `-y` simply automates answers to any questions that may arise, i.e. says "yes" to everything.
+
+If our command is able to run without error, this is an indication that we have access to the internet.
+Once this is done we install the web server via a similar command:
+```
+sudo apt-get install nginx -y
+```
+This time we use the key word `install` along with the name of the target program, `nginx` in this case.
+
+Next we need to start our program via the command:
+```
+sudo systemctl start nginx
+```
+Note when we execute this line we will not get any output, therefore to check that it has done what we wanted we use:
+```
+sudo systemctl status nginx
+```
+This then confirms whether or not our application is running. (Note that GitBash might not allow futher input after running this, if so use `ctrl + C`)
+
+Vagrant also allows us to fix the address of our virtual machine, this is useful as it makes it easier for ourselves or anyone else using our virtual machine to find it. All that is needed is an additional line in the comfiguration file as shown below:
+```
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.network "private_network", ip: "192.168.10.100"
+
+end
+```
+We apply the change to our virtual machine by exiting our terminal using the `exit` command and then using
+```
+vagrant reload
+```
+After this is run the change has been applied to our machine, which we have successfully given an IP address, and we can verify this by searching with the IP address we gave in our configuration file and get
+![](nginx_server.png)
+Now we have a web server to work with!
