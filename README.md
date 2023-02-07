@@ -56,3 +56,22 @@ One of the main reasons we need to build these is to ensure consistency accross 
 - It should only support one application:
   - App 1 requires version 1.1, App 2 requires version 1.4
   - App 1 needs a specific program that conflicts with the program needed by App 2
+
+### Setting up our Environment using Vagrant
+After installing VirtualBox and Vagrant we use the following to make our environment after navigating to the correct directory
+```
+vagrant init ubuntu/xenial64
+```
+Follwing which we should get 
+```
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+
+
+end
+```
+To then start our environment we use the command:
+```
+vagrant up
+```
