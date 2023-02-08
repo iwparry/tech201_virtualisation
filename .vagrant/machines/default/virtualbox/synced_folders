@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/iwpar/DevOps/TECH201_VIRTUALISATION/tech201_virtualisation","disabled":false,"__vagrantfile":true}}}
+{"virtualbox":{"/home/vagrant/app":{"guestpath":"/home/vagrant/app","hostpath":"C:/Users/iwpar/DevOps/TECH201_VIRTUALISATION/tech201_virtualisation/app","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/iwpar/DevOps/TECH201_VIRTUALISATION/tech201_virtualisation","disabled":false,"__vagrantfile":true}}}

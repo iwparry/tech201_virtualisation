@@ -130,3 +130,17 @@ vagrant reload
 After this is run the change has been applied to our machine, which we have successfully given an IP address, and we can verify this by searching with the IP address we gave in our configuration file and get
 ![](nginx_server.png)
 Now we have a web server to work with!
+
+
+### Creating an improved VM
+
+```
+  # Sync the app folder
+  config.vm.synced_folder "app", "/home/vagrant/app"
+```
+It is important that we add "app" to the end or else we won't be able to singn in with ssh.
+```
+vagrant@ubuntu-xenial:~$ ls
+app
+```
+running ls will show the `app` folder to us.

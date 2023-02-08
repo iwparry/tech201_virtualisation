@@ -2,7 +2,7 @@
 
 Notes on advanced Linux commands to use in BASH in Tech 201.
 
-### Kernal
+### Kernel
 
 The core of our OS i.e. this is what makes 'Windows' Windows.
 
@@ -21,26 +21,46 @@ Linux ubuntu-xenial 4.4.0-210-generic #242-Ubuntu SMP Fri Apr 16 09:57:56 UTC 20
 This gives us all the details of our OS (the VM we created).
 
 Other flags include:
+
 `-s`
+
 `-r`
+
 `-m`
+
 `-i`
+
 `-o`
 
 Commands we use:
+
 `ls` - Lists the content of our current folder
+
 `cd` - Change Directory, allows us to navigate through our working directory
+
 `pwd` - Print Working Directory, shows us exactly where we are in the folder structure
+
 `mkdir` - Make Directory, allows us to make a folder from our terminal
+
 `clear` - Clears the terminal
+
 `touch` - Makes a file in current directory
+
 `cat` - Allows us to view the contents of a particular file
+
 `nano` - We can use to edit files from our terminal, can also use this to edit our BASH profile
+
 `cp` - Allows us to copy files
+
 `rm` -  Allows us to delete a file
+
 `rmdir` - Remove Directory, allows us to delete a directory (empty)
+
 `mv` - Moves a file to a target folder. We can also use this command to rename a file.
+
 `grep` - We can search for a word in a filename
+
+`chmod` - Allows us to change permissions for a particular file
 
 ```
 ls -l
@@ -102,3 +122,53 @@ https://www.mysite.com/myfolder/subfolder/sub/sub2/page1.ht
 #### Relative
 
 
+#### File Permissions
+We can view file permission via `ls -l`, listing contents in long format.
+
+If we run this in our home directory in our VM we will see this in the output
+```
+drwxrwxr-x 
+```
+`r` - (read) you may read the contents of the file
+
+`w` - (write) you may change the contents of the file
+
+`x` - (executre) you may run the file if its a program or a script
+
+`u` - User
+
+`g` - Group
+
+`o` - Other
+
+example
+```
+sudo chmod u+x test_file.txt
+```
+Gives execute permissions to the user group for `test_file.txt`
+
+```
+sudo chmod 777 test_file.txt
+```
+grants all permissions for all groups
+
+
+```
+ps aux
+```
+This command will give us a snapshot of all the processes that are running in real time.
+
+```
+kill 2033
+```
+Is how we terminate a process, here `2033` is the PID (process ID), in this example we have a 'dummy process'
+```
+sleep 120 &
+```
+`&` is important as what it does is run the process in the background without getting in our way, running without would actually lock us out of our terminal for a fix number of second `120` in this case.
+
+Some processes may be very stubborn when we want to terminate them, in this case we use
+```
+kill -9 2036
+```
+This fully kills the process.
