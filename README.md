@@ -28,9 +28,9 @@ benefits include:
 
 ### Infastructure and Architecture
 #### Monolith
-A monolithic architecture is a traditional model of a software program, which is built as a unified unit that is self-contained abd independent from other applications.
+A monolithic architecture is a traditional model of a software program, which is built as a unified unit that is self-contained and independent from other applications.
 #### Two tier 
-In a two-tier architecture, the client os on the first tier. The database server and web appliction server reside on the same server machine which is the second tier
+In a two-tier architecture, the client is on the first tier. The database server and web appliction server reside on the same server machine which is the second tier
 #### Microservices
 A microservice architecture – a variant of the service-oriented architecture structural style – is an architectural pattern that arranges an application as a collection of loosely coupled, fine-grained services, communicating through lightweight protocols.
 
