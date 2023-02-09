@@ -64,7 +64,7 @@ vagrant init ubuntu/xenial64
 ```
 `init` simply meaning 'initialise', and `ubuntu/xenial64` being the OS we want our virtual machine to be.
 Follwing which we should get a Vagrantfile, which is a configuration file we have created in our chosen folder, with the following lines of code (initially will come with a lot of comments!). Note the file is also written in the language, Ruby.
-```
+```Ruby
 Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/xenial64"
@@ -115,7 +115,7 @@ sudo systemctl status nginx
 This then confirms whether or not our application is running. (Note that GitBash might not allow futher input after running this, if so use `ctrl + C`)
 
 Vagrant also allows us to fix the address of our virtual machine, this is useful as it makes it easier for ourselves or anyone else using our virtual machine to find it. All that is needed is an additional line in the comfiguration file as shown below:
-```
+```Ruby
 Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/xenial64"
@@ -134,7 +134,7 @@ Now we have a web server to work with!
 
 ### Creating an improved VM
 
-```
+```Ruby
   # Sync the app folder
   config.vm.synced_folder "app", "/home/vagrant/app"
 ```
@@ -144,3 +144,83 @@ vagrant@ubuntu-xenial:~$ ls
 app
 ```
 running ls will show the `app` folder to us.
+
+### Installing node.js (version 6.x) and pm2
+In our Git Bash terminal we start nginx as before then to install node.js we enter
+```
+vagrant@ubuntu-xenial:~$ sudo apt-get install python-software-properties
+```
+This will install the dependencies required by node.js. After this we enter
+```
+vagrant@ubuntu-xenial:~$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+```
+This specifies which version of node.js we want. An then we enter
+```
+vagrant@ubuntu-xenial:~$ sudo apt-get install nodejs -y
+```
+To begin installation.
+
+After installation is finish we can simply enter the following to confirm that we have node.js installed.
+```
+vagrant@ubuntu-xenial:~$ nodejs -v
+v6.17.1
+```
+Now that we have installed node.js, we can install a package called pm2, we do so via
+```
+vagrant@ubuntu-xenial:~$ sudo npm install pm2 -g
+```
+We now should have everything we need for our app, which we already have on our system (Luke shared in chat during lesson). Now we `cd` into the app folder (possibly nested).
+```
+vagrant@ubuntu-xenial:~/app$ ls
+app.js  node_modules  package-lock.json  public     seeds  views
+models  package.json  provsion.sh        README.md  test
+```
+Now we enter the following to install the app
+```
+vagrant@ubuntu-xenial:~/app$ npm install
+```
+
+Then launch our app via 
+```
+vagrant@ubuntu-xenial:~/app$ node app.js
+Your app is ready and listening on port 3000
+```
+And to view our test app we simply add ":3000" to the end of our ip address for nginx and we should get
+
+![](spartatestapp.png)
+
+
+# 09/02/23
+
+1. To start off we destory our virtual machines
+
+2. We are going to go into provisioning our VM.
+
+3. First make a new file called provision.sh in the same folder as our Vagrantfile
+
+4. In this file we write 
+```sh
+#!/bin/bash
+```
+
+5. We then write our script
+```sh
+# Update and upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# Install nginx
+sudo apt-get install nginx -y
+
+# Enable or start Nginx
+sudo systemctl enable nginx -y
+```
+These are commands that we use in our vm but we now write a script to automate the process, `-y` is important!
+
+6. We then write in our Vagrantfile
+```Ruby
+  # Provisioning
+  config.vm.provision "shell", path: "provision.sh"
+```
+
+7. We then run `vagrant up` to create our VM and it should be created with our provisions.
