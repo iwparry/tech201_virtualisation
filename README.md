@@ -189,6 +189,7 @@ And to view our test app we simply add ":3000" to the end of our ip address for 
 
 ![](spartatestapp.png)
 
+which shows our app is deployed on the vm
 
 # 09/02/23
 
