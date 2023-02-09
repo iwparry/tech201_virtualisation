@@ -46,11 +46,11 @@ Once `vagrant up` has finished running with our terminal we can check if our ser
 
 We start by putting the command to install all dependencies that Node.js requires
 ```sh
-sudo apt-get install python-software-properties
+sudo apt-get install python-software-properties -y
 ```
 Once we've done this we can then add 
 ```sh
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash
 sudo apt-get install nodejs -y
 ```
 Here we specify the version of Node.js we want to install (which is version 6.x for our app), and then we proceed to install the version of Node.js that we want.
@@ -64,3 +64,33 @@ Now we should be able to ssh into our VM and navigate into our app folder to exe
 vagrant@ubuntu-xenial:~/app$ node app.js
 ```
 This command should start up our app and tell us on what port in our IP address we should be able to find the app.
+
+If this works for us as we want we can then look to add provisions into our script to actually start the app.
+
+![](spartatestapp.png)
+
+#### 3. Now that we have provisioned our installation lets provision getting the app started.
+
+We can simply do this by having our VM navigate into our app folder and installing it
+```sh
+cd app
+npm install
+```
+and then starting the app by adding
+```sh
+node app.js
+```
+We can now fire up our VM by using the `vagrant up` command in Bash and we should get
+
+![](provisionedVM.png)
+
+We haven't even had to use ssh to get in and all the steps have been executed, so our app should be up and running just as before!
+
+## Here are snippets of the full code below
+### provision.sh
+
+![](provisionsh.png)
+
+### Vagrantfile
+
+![](Vagrantfile.png)
