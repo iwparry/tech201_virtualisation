@@ -100,3 +100,64 @@ If everything is ok we should receive the following output after we `enable` our
 ```
 Created symlink /etc/systemd/system/multi-user.target.wants/mongod.service -> /lib/systemd/system/mongod.service.
 ```
+### Changing the configuration of our database
+We want to change the configuration of our database in a way so that our `app` VM will be able to access it.
+To do this we need to edit the configuration file `/etc/mongod.conf` using `sudo nano` (sudo may not always be necessary but its better to just use just incase).
+
+What we are looking to change is this block:
+```
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1
+```
+In order for our `app` VM to access the database we want to change `bindIp` to `0.0.0.0`, this basically makes it accessible by anything. If unsure about whether this was changed successfully, use `cat` to view the contents of the configuration file.
+
+Once we've made the changes we needed we restart `mongod`.
+
+```
+sudo systemctl restart mongod
+```
+then
+```
+sudo systemctl enable mongod
+```
+### Setting up the Environment Variable
+Now that we have gone through the set up in our `database` terminal, we now need to move over to the terminal where we logged into the `app` VM and create an environment variable to connect our app to the database.
+
+We set up our environment variable by entering the following
+```
+export DB_HOST=mongodb://192.168.10.150:27017/posts
+```
+We can then check that it has been set up properly by the following input
+```
+printenv DB_HOST
+```
+Which should return:
+```
+mongodb://192.168.10.150:27017/posts
+```
+### Verifying that our app can successfully connect to the database
+Now lets `cd` into our `app` folder that's in our VM.
+Once we are in the right place we can run the command:
+```
+npm install
+```
+To install our app, however in order for us to view the contents of our database, we will need it to be seeded. So in our `app` folder we need to run: 
+```
+node seeds/seed.js
+```
+So now if everything has worked properly we can start the actual app:
+```
+node app.js
+```
+And get `Your app is ready and listening on port 3000
+` in our terminal. So we open our browser and enter the IP Address we used previously (192.168.10.100:3000) to get
+
+![](spartatestapp.png)
+
+And to view the contents of our database we add `/posts` to the end of our IP Address and we should see the following:
+
+![](database_content.png)
+
+And like that, we have created 2 VMs simultaneously and have connected them!
