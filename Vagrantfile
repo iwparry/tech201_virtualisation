@@ -15,5 +15,7 @@ Vagrant.configure("2") do |config|
     database.vm.network "private_network", ip: "192.168.10.150"
     # Sync the environment folder
     database.vm.synced_folder "environment", "/home/vagrant/environment"
+    # Provisioning
+    database.vm.provision "shell", path: "db_provision.sh"
   end
 end
